@@ -31,6 +31,3 @@ to persist state between pages
 e.g. Redux, Appollo, local state
 
 `_app.js`
-
-
-### Module 2
