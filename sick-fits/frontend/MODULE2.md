@@ -45,3 +45,11 @@ compiled:
 ```
 
 
+## where to put styled components?
+
+1. put it inside component file first
+2. then refactor later to a separate file
+when you need to reuse it 
+`styles/` folder
+
+
