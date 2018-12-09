@@ -63,3 +63,21 @@ load global styles in
 `injectGlobal`
 
 best way to defined `border-box`
+
+
+## visualizing Route changes in a SPA
+(browser spinner, status bar)
+
+- nprogress (progress bar library)
+
+NExt.js builds pags on-demand during dev, first load slow
+
+on prod - all loaded ad prefetched
+
+- attach nprogress to Next Router events
+
+onRouteChangeStart
+onRouteChangeComplete
+onRouteChangeError
+
+## fixing styled components flicker on server render
