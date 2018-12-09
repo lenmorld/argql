@@ -53,3 +53,13 @@ when you need to reuse it
 `styles/` folder
 
 
+
+## global styling
+
+1. set stuff, e.g. typgohgraphy globally
+and overwrite on the components
+
+load global styles in
+`injectGlobal`
+
+best way to defined `border-box`
