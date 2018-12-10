@@ -81,3 +81,26 @@ onRouteChangeComplete
 onRouteChangeError
 
 ## fixing styled components flicker on server render
+
+on refresh, we are getting un-styled site for a split second. 
+server is rendering the first run of react app, then
+client side is picking it up
+
+on client side, on mount of component
+all of the components have styled components
+only applied on mount
+
+however, on SSR, all needs to be fetched
+before send data to browser
+
+we need CSS at the point of initial render
+
+fix:
+custom document, rendered on server-side
+with `ServerStyleSheet`
+with `getInitialProps`
+
+https://github.com/zeit/next.js/blob/canary/examples/with-styled-components/pages/_document.js
+
+collects all styles and attaches them to doc first load
+puts it in the `<style>` tag
