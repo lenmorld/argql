@@ -177,3 +177,40 @@ query {
 
 we can see `hasNextPage`
 ![](2018-12-11-22-50-50.png)
+
+
+### GraphQL Yoga Server
+
+Prisma generates the CRUD APIs
+like the Query, Mutation s in `prisma.graphql`
+
+we can't use these directly though
+no security, auth layer
+no custom layer logic
+
+this is ONLY CRUD
+
+#### GraphQL Yoga Server
+- Express GraphQL Server
+- Apollo Server
+implement Query, Mutation resolvers
+
+
+React.js    Apollo Client      GraphQL Yoga     Prisma
+
+                        Node-express    MongoDB
+
+
+#### resolvers
+
+resolvers answers
+- where does the data come from,
+- what does this data do
+
+2 kinds:
+query, mutation resolvers
+
+
+
+we're creating 2 grpahQL servers
+both have their own typeDefs
