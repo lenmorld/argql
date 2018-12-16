@@ -2,8 +2,9 @@ type Dog {
     name: String!
 }
 
+# take in a name, return a Dog
 type Mutation {
-    hi: String
+    createDog(name: String!): Dog
 }
 
 type Query {
