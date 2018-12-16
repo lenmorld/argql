@@ -8,10 +8,10 @@ type Item {
   id: ID! @unique
   title: String!
   description: String!
-  image: String!
-  largeImage: String!
+  image: String
+  largeImage: String
   price: Int!
-  createAt: DateTime! # Prisma specific
-  updatedAt: DateTime!
+  # createdAt: DateTime! # Prisma specific
+  # updatedAt: DateTime!
   # user: User!
 }
