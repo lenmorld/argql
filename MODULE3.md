@@ -211,6 +211,101 @@ resolvers answers
 query, mutation resolvers
 
 
-
 we're creating 2 grpahQL servers
 both have their own typeDefs
+
+![](2018-12-14-23-02-43.png)
+
+#### first query and mutation
+
+take Prisma out of the equation to focus on GraphQL Yoga
+
+![](2018-12-16-16-56-08.png)
+
+https://app.asana.com/0/947986908372180/947986908372183/f
+
+
+#### Prisma Yoga Flow
+
+Yoga Flow
+
+[PRISMA]
+1. Edit  data model -  (`datamodel.graphql`)
+i.e. Prisma, backend
+
+2. Deploy to Prisma - `npm run deploy` - (updates `prisma.graphql`)
+
+i.e.,
+`prisma.graphql` file generated based off
+`datamodel.graphql`
+
+[YOGA]
+3. Edit `schema.graphql` for Yoga
+i.e. `schema.graphql` is our public-facing API
+only exposes a few Mutation and Query
+
+4. write a resolver for Query/Mutation or both
+`Mutation.js`, `Query.js`
+
+
+To see what is available for us to use in the backend
+
+1. open `prisma.graphql`, check for mutation/query needed
+  e.g.l ItemsQuery, UsersQuery
+2. check playground of backend
+
+![](2018-12-16-18-22-46.png)
+
+![](2018-12-16-18-23-35.png)
+
+##### First mutaion
+
+- in `schema.graphql`, we need Item schema
+import from `prisma.graphql` using Prisma import
+which looks like a comment
+
+```
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+  ...
+```
+
+accessing db from resolver Mutation.js
+`const item = ctx.db`
+
+![](2018-12-16-18-16-22.png)
+
+Verify if item added to backend
+
+access prisma backend
+$ `prisma console`    # this opens browser
+
+![](2018-12-16-18-17-26.png)
+
+
+
+#### First Query
+
+debugging
+
+![](2018-12-16-18-27-02.png)
+
+
+add name to mutation?
+
+![](2018-12-16-18-27-58.png)
+
+![](2018-12-16-18-29-05.png)
+
+![](2018-12-16-18-29-28.png)
+
+
+#### If same query ...
+If query exactly the same in 
+Prisma and Yoga
+
+- make a query, but it's just pulling a list
+no filters, auth, custom logic
+
+- forward query Prisma to Yoga
