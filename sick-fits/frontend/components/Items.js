@@ -23,10 +23,15 @@ class Items extends Component {
                 <p>Items!</p>
                 <Query query={ALL_ITEMS_QUERY}>
                     {
-                       (payload) => {
-                            console.log(payload);
-                            return <p>Hey i'm the child of query</p>
-                       } 
+                        ({ data, error, loading }) => {
+                            if (loading) return <p>Loading...</p>;
+                            if (error) return <p>Error: {error.message}</p>;
+                            // console.log(payload);
+                            return <div>
+                                <p>Hey i'm the child of query</p>
+                                <p>I found {data.items.length} items</p>
+                            </div>;
+                        }
                     }
                 </Query>
             </div>
