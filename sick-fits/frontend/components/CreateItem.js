@@ -53,9 +53,16 @@ class CreateItem extends Component {
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
           <Form
-            onSubmit={e => {
-              e.preventDefault();
-              console.log(this.state);
+            onSubmit={async e => {
+              e.preventDefault(); // stop form from submitting
+              // console.log(this.state);
+
+              // call mutation
+              const res = await createItem();
+
+              console.log(res);
+
+              // TODO: redirect to single item page
             }}
           >
             <Error error={error} />
