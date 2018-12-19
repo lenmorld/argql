@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import Router from "next/router";
 
 import Form from "./styles/Form";
 import formatMoney from "../lib/formatMoney";
@@ -62,7 +63,11 @@ class CreateItem extends Component {
 
               console.log(res);
 
-              // TODO: redirect to single item page
+              // redirect to single item page
+              Router.push({
+                pathname: "/item",
+                query: { id: res.data.createItem.id }
+              });
             }}
           >
             <Error error={error} />
