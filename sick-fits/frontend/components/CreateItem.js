@@ -81,6 +81,9 @@ class CreateItem extends Component {
               e.preventDefault(); // stop form from submitting
               // console.log(this.state);
 
+              // TODO: check first if image is finished uploading
+              //      better UX instead of error on submit when image doesn't exist
+
               // call mutation
               const res = await createItem();
 
@@ -106,6 +109,13 @@ class CreateItem extends Component {
                   value={this.state.file}
                   onChange={this.uploadFile}
                 />
+                {this.state.image && (
+                  <img
+                    width="200"
+                    src={this.state.image}
+                    alt="Upload Preview"
+                  />
+                )}
               </label>
               <label htmlFor="title">
                 Title
