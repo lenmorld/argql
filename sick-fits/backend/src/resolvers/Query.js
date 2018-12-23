@@ -1,14 +1,14 @@
 const { forwardTo } = require('prisma-binding');
 
 const Query = {
-    // forward all API from Prisma to Yoga
-    items: forwardTo('db'),
+	// forward all API from Prisma to Yoga
+	items: forwardTo('db'),
 
-    // async items(parent, args, ctx, info) {
-    //     const items = await ctx.db.query.items();
-    //     console.log(items);
-    //     return items;
-    // },
+	// async items(parent, args, ctx, info) {
+	//     const items = await ctx.db.query.items();
+	//     console.log(items);
+	//     return items;
+	// },
 };
 
 module.exports = Query;
