@@ -61,7 +61,9 @@ class UpdateItem extends Component {
 				{({ data, loading }) => {
 					if (loading) return <p>Loading...</p>;
 
-					// console.log(data);
+					console.log(
+						`defaultValue data: ${data.item.title} ${data.item.description}`
+					);
 
 					return (
 						<Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
