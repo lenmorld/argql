@@ -19,17 +19,19 @@ const SINGLE_ITEM_QUERY = gql`
 `;
 
 // mutation query
-// createItem from `schema.graphql`
+// updateItem from `schema.graphql`
 const UPDATE_ITEM_MUTATION = gql`
 	mutation UPDATE_ITEM_MUTATION(
-		$title: String!
-		$description: String!
-		$price: Int!
+		$id: ID!
+		$title: String
+		$description: String
+		$price: Int
 	) {
-		createItem(title: $title, description: $description, price: $price) {
+		updateItem(id: $id, title: $title, description: $description, price: $price) {
 			id
 			title
 			description
+			price
 		}
 	}
 `;
@@ -49,10 +51,18 @@ class UpdateItem extends Component {
 		});
 	};
 
-	updateItem = (e, updateItemMutation) => {
+	updateItem = async (e, updateItemMutation) => {
 		e.preventDefault();
 		console.log("updating item");
 		console.log(this.state);
+		const res = await updateItemMutation({
+			variables: {
+				id: this.props.id,
+				...this.state
+			}
+		});
+
+		console.log("updated !!!");
 	};
 
 	render() {
@@ -108,7 +118,7 @@ class UpdateItem extends Component {
 												onChange={this.handleChange}
 											/>
 										</label>
-										<button type="submit">Submit</button>
+										<button type="submit">Sav{loading ? "ing" : "ed"}</button>
 									</fieldset>
 								</Form>
 							)}
