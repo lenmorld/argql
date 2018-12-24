@@ -31,7 +31,7 @@ const Mutations = {
 
 	updateItem(parent, args, ctx, info) {
 		// first take a copy of the updates
-		const updates = { ...args};
+		const updates = { ...args };
 		// remove the ID from the updates
 		delete updates.id;
 		// run the update method
@@ -39,10 +39,10 @@ const Mutations = {
 			{
 				data: updates,
 				where: {
-					id: args.id.
+					id: args.id,
 				},
 			},
-			info
+			info,
 		);
 	},
 };
