@@ -25,17 +25,11 @@ const UPDATE_ITEM_MUTATION = gql`
 		$title: String!
 		$description: String!
 		$price: Int!
-		$image: String
-		$largeImage: String
 	) {
-		createItem(
-			title: $title
-			description: $description
-			price: $price
-			image: $image
-			largeImage: $largeImage
-		) {
+		createItem(title: $title, description: $description, price: $price) {
 			id
+			title
+			description
 		}
 	}
 `;
@@ -55,11 +49,19 @@ class UpdateItem extends Component {
 		});
 	};
 
+	updateItem = (e, updateItemMutation) => {
+		e.preventDefault();
+		console.log("updating item");
+		console.log(this.state);
+	};
+
 	render() {
 		return (
 			<Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
 				{({ data, loading }) => {
 					if (loading) return <p>Loading...</p>;
+
+					if (!data.item) return <p>No Item Found for ID {this.props.id}</p>;
 
 					console.log(
 						`defaultValue data: ${data.item.title} ${data.item.description}`
@@ -67,27 +69,8 @@ class UpdateItem extends Component {
 
 					return (
 						<Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
-							{(createItem, { loading, error }) => (
-								<Form
-									onSubmit={async e => {
-										e.preventDefault(); // stop form from submitting
-										// console.log(this.state);
-
-										// TODO: check first if image is finished uploading
-										//      better UX instead of error on submit when image doesn't exist
-
-										// call mutation
-										const res = await createItem();
-
-										console.log(res);
-
-										// redirect to single item page
-										Router.push({
-											pathname: "/item",
-											query: { id: res.data.createItem.id }
-										});
-									}}
-								>
+							{(updateItem, { loading, error }) => (
+								<Form onSubmit={e => this.updateItem(e, updateItem)}>
 									<Error error={error} />
 									<fieldset disabled={loading} aria-busy={loading}>
 										<label htmlFor="title">
