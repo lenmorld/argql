@@ -177,4 +177,148 @@ loading:
 
 ![](2018-12-18-22-21-14.png)
 
-Redirecting:
+Redirecting
+
+#### 19. uploading images
+
+Cloudinary
+
+- image hosting
+- 10GB free
+
+setup to upload directly from client
+without a middle layer
+
+Settings > Upload > Add upload preset
+
+![](2018-12-20-20-40-36.png)
+
+![](2018-12-20-20-43-01.png)
+
+![](2018-12-20-20-43-37.png)
+
+![](2018-12-20-20-56-21.png)
+
+`"https://api.cloudinary.com/v1_1/dvfhgkkpe/image/upload"`
+
+observe Reaect dev tools
+while uploading
+
+![](2018-12-20-21-12-58.png)
+
+![](2018-12-20-21-13-44.png)
+
+we can see the state come back
+
+### submitting works now too
+
+![](2018-12-20-21-15-53.png)
+
+SHOP
+
+![](2018-12-20-21-16-58.png)
+
+EDIT PRESET - auto height
+500 - auto
+
+![](2018-12-20-21-25-27.png)
+
+#### Updating items - query and mutation
+
+schema.graphql
+
+**Query resolver**
+
+`item(where: ItemWhereUniqueInput!) : Item`
+
+same as
+
+`item(id: id!)`
+
+but it's better to stay consistent with
+prisma.graphql
+
+![](2018-12-23-12-33-31.png)
+
+**Mutation resolver**
+
+```
+	updateItem(parent, args, ctx, info) {
+		// first take a copy of the updates
+		const updates = { ...args};
+		// remove the ID from the updates
+		delete updates.id;
+		// run the update method
+		return ctx.db.mutation.updateItem(
+			{
+				data: updates,
+				where: {
+					id: args.id.
+				},
+			},
+			info            // return this
+		);
+	},
+```
+
+**Frontend**
+
+update.js
+
+props passed to Sell
+
+![](2018-12-23-13-38-49.png)
+
+Sell > UpdateItem
+
+![](2018-12-23-13-47-27.png)
+
+**UpdateItem.js**
+
+must enclose Mutation inside Query
+
+```
+	render() {
+		return (
+			<Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
+				{({ data, loading }) => {
+					return (
+						<Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
+							{(createItem, { loading, error }) => (
+```
+
+`defaultValue={data.item.title}`
+
+defaultValue:
+allows to set input box to some text
+without tying it to state
+since we want to mirror the input to state only when changed
+
+![](2018-12-23-15-15-09.png)
+
+![](2018-12-24-10-08-20.png)
+
+after submitting async `updateItemMutation`
+it's nice that we get a clear error
+
+![](2018-12-24-10-15-23.png)
+
+this is from `<Error error={error}`
+
+we have to match mutation params
+with the schema
+
+![](2018-12-24-10-18-53.png)
+
+_strict typing_
+
+even though we are passing id here
+
+![](2018-12-24-10-24-51.png)
+
+id will be ignored here, if we don't put it
+in the arguments
+
+![](2018-12-24-10-27-43.png)
+
+![](2018-12-24-10-29-35.png)
