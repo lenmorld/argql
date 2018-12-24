@@ -322,3 +322,135 @@ in the arguments
 ![](2018-12-24-10-27-43.png)
 
 ![](2018-12-24-10-29-35.png)
+
+### CRUD Flow
+
+BACKEND
+
+1. Add to schema: `schema.graphql`
+2. Add to resolver: `Query.js` or `Mutation.js`
+
+UI
+
+1. Add to UI - e.g. Create/Delete/Edit button and forms
+2. Component- e.g. `DeleteItem.js`
+3. Mutation - `DELETE_ITEM_MUTATION`
+   which calls the ones in schema
+4. in `render()`, use render props to enclose UI with
+   Mutation/Query
+
+   ```
+   <Mutation mutation={DELETE_ITEM_MUTATION}
+             variables={{ id: this.props.id }}>
+               {() => (
+                   <button
+                        onClick={() => deleteItem}
+                    >...
+               )}
+   ```
+
+commits:
+4_20_Backend DeleteItem
+4_20_Frontend DeleteItem
+
+##### Delete Item
+
+Raw GraphQL query
+`const item = await ctx.db.query.item({ where }, ' id title ');`
+
+it works, but doesn't refresh the lis of items
+have to do a manual refresh to show updated
+
+**cache invalidation**
+
+deleted in backend
+but not deleted in cache
+
+options:
+
+1. manually delete in cache
+2. prefetch query in home page
+3. just delete that item from current page
+
+-> delete in cache
+
+read cache in update funcion
+i.e., must get all these items
+
+![](2018-12-24-12-04-38.png)
+
+we can use `ALL_ITEMS_QUERY` in Items.js
+
+![](2018-12-24-12-13-47.png)
+
+![](2018-12-24-12-15-24.png)
+
+WORKS!
+
+
+##### Item page
+
+1. check in schema: `item(where: ItemWhereUniqueInput!): Item`
+
+2. check in prisma backend: 
+```
+input ItemWhereUniqueInput {
+  id: ID
+}
+```
+it accepts just an ID
+
+3. check resolver
+Query.js: `item: forwardTo('db'),`
+no extra work needed
+
+
+`pages/item.js`
+renders
+`components/SingleItem.js`
+
+
+![](2018-12-24-16-29-00.png)
+
+
+![](2018-12-24-16-47-03.png)
+
+
+Handling no item found:
+component still loads even if there is no item found
+
+![](2018-12-24-16-47-58.png)
+
+
+1. server side - custom resolver
+if no item found, throw error
+display message in UI
+
+2. client side - `if (!data.item)`
+
+
+#### updating <title> for current item
+
+need to update meta
+using Next.js **side-effects**
+we can have multiple head tags throughout app
+
+possible to do this:
+
+![](2018-12-24-16-55-30.png)
+
+
+CSS 
+```
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+```
+
+if extermely wide and short
+or tall and wide
+`object-fit: contain` will fit it in
+
+![](2018-12-24-16-59-12.png)
