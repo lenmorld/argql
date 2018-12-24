@@ -1,9 +1,10 @@
 import React from 'react';
 import SingleItem from '../components/SingleItem';
 
+
 const Item = props => (
 	<div>
-		<SingleItem />
+		<SingleItem id={props.query.id} />
 	</div>
 );
 
