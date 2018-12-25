@@ -19,6 +19,10 @@ const SingleItemStyles = styled.div`
 		height: 100%;
 		object-fit: contain;
 	}
+
+	.details {
+		margin: 3rem;
+	}
 `;
 
 const SINGLE_ITEM_QUERY = gql`
