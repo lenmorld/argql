@@ -454,3 +454,43 @@ or tall and wide
 `object-fit: contain` will fit it in
 
 ![](2018-12-24-16-59-12.png)
+
+
+##### Pagination
+
+- we don't want to write a query to fetch 1000 items
+- neither get the IDs of 1000 items, and split
+
+**Prisma connections**
+
+######## Backend
+
+`prisma.graphql` - we have `ItemConnection`
+
+1. `schema.graphql` 
+
+```
+type Query
+...
+    itemsConnection(where: ItemWhereInput): ItemConnection!
+```
+
+
+2. `Query.js` resolver
+
+```
+const Query = {
+    ...
+    itemsConnection: forwardTo('db'),
+}
+```
+
+
+to test new connection
+
+![](2018-12-25-11-53-37.png)
+
+
+* useful for infinite scroll (e.g. 9gag, pinterest)
+
+######## Frontend
