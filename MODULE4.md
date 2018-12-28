@@ -588,3 +588,14 @@ Previous Link
 Next, Prev links
 
 ![](2018-12-27-21-02-41.png)
+
+
+
+### updating Items on page next, prev
+
+##### more specific schema Query
+
+`items(where: ItemWhereInput, orderBy: ItemOrderInput, skip: Int, first: Int): [Item]!`
+
+using skip, first:
+e.g. items 5-8

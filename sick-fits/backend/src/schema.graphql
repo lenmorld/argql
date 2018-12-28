@@ -16,7 +16,7 @@ type Mutation {
 }
 
 type Query {
-	items: [Item]!
+	items(where: ItemWhereInput, orderBy: ItemOrderInput, skip: Int, first: Int): [Item]!
 	#   item(id: Id!)   # same, but keep similar with prisma.graphql
 	item(where: ItemWhereUniqueInput!): Item
 	itemsConnection(where: ItemWhereInput): ItemConnection!
