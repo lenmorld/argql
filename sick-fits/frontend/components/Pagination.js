@@ -22,7 +22,9 @@ const Pagination = props => (
 				const count = data.itemsConnection.aggregate.count;
 				const pages = Math.ceil(count / perPage);
 				return (
-				<p>Page 1 of {pages}</p>
+				<p>
+					Page {props.page} of {pages}
+				</p>
 			)}
 		}
 		</Query>
