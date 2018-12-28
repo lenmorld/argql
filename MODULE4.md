@@ -494,3 +494,97 @@ to test new connection
 * useful for infinite scroll (e.g. 9gag, pinterest)
 
 ######## Frontend
+
+
+Pagination query
+
+
+```
+const PAGINATION_QUERY = gql`
+	query PAGINATION_QUERY {
+		itemsConnection {
+			aggregate {
+				count
+			}
+		}
+	}
+`;
+```
+
+```
+const Pagination = props => (
+	<PaginationStyles>
+		<Query query={PAGINATION_QUERY}>
+			{({ data, loading, error }) => {
+				if (loading) return <p>Loading...</p>
+				return (
+				<p>pagination {data.itemsConnection.aggregate.count}</p>
+			)}
+		}
+		</Query>
+	</PaginationStyles>
+)
+```
+
+![](2018-12-27-20-20-22.png)
+
+
+`config.js`
+- items per page
+
+
+`http://localhost:7777/items?page=2`
+props: page=2
+
+to get the props
+
+1. page -> Items
+
+`pages/index.js`
+```
+<Items page={parseFloat(props.query.page) || 1}/>
+```
+
+if first page, default to 1
+
+2. Items -> Pagination
+
+`Items.js`
+
+```
+<Pagination page={this.props.page}></Pagination>
+```
+
+2. Pagination component has access to this now
+
+![](2018-12-27-20-30-38.png)
+
+
+
+Title bar
+
+![](2018-12-27-20-41-11.png)
+
+
+Previous Link
+
+```
+    <Link
+        prefetch
+        href={{
+            pathname: 'items',
+            query: { page: page - 1 },
+        }}
+    >
+        <a>⬅️ Prev</a>
+    </Link>
+```
+
+**prefetch** attrib on Link:
+- in prod. it prerenders both previous and forward pages
+- instant pagination results
+
+
+Next, Prev links
+
+![](2018-12-27-21-02-41.png)
