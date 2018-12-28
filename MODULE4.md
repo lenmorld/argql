@@ -595,7 +595,81 @@ Next, Prev links
 
 ##### more specific schema Query
 
-`items(where: ItemWhereInput, orderBy: ItemOrderInput, skip: Int, first: Int): [Item]!`
+`items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, first: Int): [Item]!`
 
 using skip, first:
 e.g. items 5-8
+
+sample on using
+`skip` and `first` "knobs"
+
+```
+    <Query query={ALL_ITEMS_QUERY} variables={{
+        skip: 2,
+        first: 2,
+    }}>
+```
+
+![](2018-12-27-21-23-04.png)
+
+
+don't really need the `first`
+since it has a fallback in the query
+```
+const ALL_ITEMS_QUERY = gql`
+    query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
+```
+
+```
+    <Query query={ALL_ITEMS_QUERY} variables={{
+    }}>
+```
+
+
+##### Cache invalidation with the Pagination
+
+all cached pages are outdated when an item is added
+- must delete Page 1,2,3 peices of cache when item is added/removed
+
+WORKAROUND:
+need a refersh
+
+solutions
+
+1. fetchPolicy
+- make query manually hit the network
+
+```
+    <Query 
+        query={ALL_ITEMS_QUERY}
+        fetchPolicy="network-only" 
+```
+
+WHYNOT!
+it never use the cache!
+always network
+
+-> lose all benefits of cache
+-> always a roundtrip
+
+2. refetch query on `CreateItem.js`
+
+```
+      <Mutation 
+        refetchQueries={ALL_ITEMS_QUERY}
+```
+
+how do we know `skip` and `first` values
+to use
+
+3. delete all items from cache
+
+since there is no way to 
+a. delete partially
+b. set a time limit on cache items
+(refetch items after some time)
+
+ALSO NOT GOOD!
+we might have some important data in cache
+
+---> STAY TUNED
