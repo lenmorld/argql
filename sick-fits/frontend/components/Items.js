@@ -38,9 +38,12 @@ class Items extends Component {
             <Center>
                 <p>Items!</p>
                 <Pagination page={this.props.page}></Pagination>
-                <Query query={ALL_ITEMS_QUERY} variables={{
-                    skip: this.props.page * perPage - perPage,
-                }}>
+                <Query 
+                    query={ALL_ITEMS_QUERY}
+                    fetchPolicy="network-only" 
+                    variables={{
+                        skip: this.props.page * perPage - perPage,
+                    }}>
                     {
                         ({ data, error, loading }) => {
                             if (loading) return <p>Loading...</p>;
