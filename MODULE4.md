@@ -628,6 +628,9 @@ const ALL_ITEMS_QUERY = gql`
 
 ##### Cache invalidation with the Pagination
 
+after add/remove item and go to home page,
+not updated bec. of pagination
+
 all cached pages are outdated when an item is added
 - must delete Page 1,2,3 peices of cache when item is added/removed
 
