@@ -1,3 +1,6 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const Mutations = {
 	// createDog(parent, args, ctx, info) {
 	//     // TODO: create a Dog
@@ -55,6 +58,33 @@ const Mutations = {
 		// TODO
 		// 3. Delete it
 		return ctx.db.mutation.deleteItem({ where }, info);
+	},
+
+	async signup(parent, args, ctx, info) {
+		// normalize case
+		args.email = args.email.toLowerCase();
+		// hash their password		(pass, SALT / SALT length)
+		const password = await bcrypt.hash(args.password, 10);
+		// create the user in the DB
+		const user = await ctx.db.mutation.createUser({
+			data: {
+				...args,			// equiv:  name: args.name, email: args.email, ...
+				password,			// equiv: password: password
+				permissions: { set: ['USER']},			// need this for an ENUM
+			}
+		}, info);			// AGAIN, createUser is our API in prisma.graphql
+
+		// create JWT token for them
+		const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+
+		// set JWT as a cookie on the response
+		ctx.response.cookie('token', token, {
+			httpOnly: true,			// don't allow any JS client to access cookie (XSS, chrome extension, etc)
+			maxAge: 1000 * 60 * 60 * 24 * 365,		// 1 year token
+		});
+
+		// return user to the browser
+		return user;
 	},
 };
 
