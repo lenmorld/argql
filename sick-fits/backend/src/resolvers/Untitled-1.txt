@@ -1,0 +1,22 @@
+# type Dog {
+#     name: String!
+# }
+
+# Prisma imports via a comment
+
+# import * from './generated/prisma.graphql'
+
+# take in a name, return a Dog
+type Mutation {
+    # createDog(name: String!): Dog
+
+    createItem(title: String, 
+        description: String,
+        price: Int,
+        image: String,
+        largeImage: String): Item!
+}
+
+type Query {
+    dogs: [Dog]!
+}

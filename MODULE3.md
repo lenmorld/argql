@@ -33,7 +33,7 @@ Mutations - CRUD data
 - self documenting
 
 
-![](2018-12-10-22-26-07.png)
+![](screens/2018-12-10-22-26-07.png)
 
 
 - GraphQL don't have queries, sort, filter like MySQL
@@ -42,14 +42,14 @@ Mutations - CRUD data
 Prisma extras
 - `where`
 
-![](2018-12-10-22-29-04.png)
+![](screens/2018-12-10-22-29-04.png)
 
 
 ### Architecture recap
 
 recap:
 
-![](2018-12-11-22-55-28.png)
+![](screens/2018-12-11-22-55-28.png)
 
 UI ---- GraphQL server ---- Prisma ---- DB
 
@@ -62,7 +62,7 @@ generates the CRUD APIs
 e.g. if we have a User field in our schema
 it generates this for us
 
-![](2018-12-11-22-53-56.png)
+![](screens/2018-12-11-22-53-56.png)
 
 
 Setup:
@@ -83,7 +83,7 @@ we are using `variables.env` instead of default `.env`, so we need to specify
 
 > `prisma deploy --env-file variables.env`
 
-![](2018-12-11-22-33-33.png)
+![](screens/2018-12-11-22-33-33.png)
 
 check out `prisma.graphql`
 - this are the generated files for data models
@@ -114,7 +114,7 @@ need to re-deploy
 
 changes are shown
 
-![](2018-12-11-22-42-02.png)
+![](screens/2018-12-11-22-42-02.png)
 
 
 it also gives us a link to "GraphQL playground"
@@ -124,18 +124,18 @@ https://us1.prisma.sh/lenmor-ld/sicccck-fits/dev
 
 Mutation: createUser
 
-![](2018-12-11-22-46-40.png)
+![](screens/2018-12-11-22-46-40.png)
 
 
 Test:
 1. a user is created in Prisma dashboard
 
-![](2018-12-11-22-47-24.png)
+![](screens/2018-12-11-22-47-24.png)
 
 
 2. test in playground
 
-![](2018-12-11-22-48-32.png)
+![](screens/2018-12-11-22-48-32.png)
 
 ```
 # Write your query or mutation here
@@ -176,7 +176,7 @@ query {
 ```
 
 we can see `hasNextPage`
-![](2018-12-11-22-50-50.png)
+![](screens/2018-12-11-22-50-50.png)
 
 
 ### GraphQL Yoga Server
@@ -214,13 +214,13 @@ query, mutation resolvers
 we're creating 2 grpahQL servers
 both have their own typeDefs
 
-![](2018-12-14-23-02-43.png)
+![](screens/2018-12-14-23-02-43.png)
 
 #### first query and mutation
 
 take Prisma out of the equation to focus on GraphQL Yoga
 
-![](2018-12-16-16-56-08.png)
+![](screens/2018-12-16-16-56-08.png)
 
 https://app.asana.com/0/947986908372180/947986908372183/f
 
@@ -254,9 +254,9 @@ To see what is available for us to use in the backend
   e.g.l ItemsQuery, UsersQuery
 2. check playground of backend
 
-![](2018-12-16-18-22-46.png)
+![](screens/2018-12-16-18-22-46.png)
 
-![](2018-12-16-18-23-35.png)
+![](screens/2018-12-16-18-23-35.png)
 
 ##### First mutaion
 
@@ -274,14 +274,14 @@ type Mutation {
 accessing db from resolver Mutation.js
 `const item = ctx.db`
 
-![](2018-12-16-18-16-22.png)
+![](screens/2018-12-16-18-16-22.png)
 
 Verify if item added to backend
 
 access prisma backend
 $ `prisma console`    # this opens browser
 
-![](2018-12-16-18-17-26.png)
+![](screens/2018-12-16-18-17-26.png)
 
 
 
@@ -289,16 +289,16 @@ $ `prisma console`    # this opens browser
 
 debugging
 
-![](2018-12-16-18-27-02.png)
+![](screens/2018-12-16-18-27-02.png)
 
 
 add name to mutation?
 
-![](2018-12-16-18-27-58.png)
+![](screens/2018-12-16-18-27-58.png)
 
-![](2018-12-16-18-29-05.png)
+![](screens/2018-12-16-18-29-05.png)
 
-![](2018-12-16-18-29-28.png)
+![](screens/2018-12-16-18-29-28.png)
 
 
 #### If same query ...

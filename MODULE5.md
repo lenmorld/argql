@@ -11,7 +11,7 @@ add an enum of permissions
 
 `npm run deploy`
 
-![](2019-01-10-22-16-31.png)
+![](screens/2019-01-10-22-16-31.png)
 
 3. update GraphQL schema
 
@@ -81,11 +81,14 @@ mdb('dogs123')		// asdf					// ATTACKER
 Testing:
 
 Schema: 
-![](2019-01-10-23-08-05.png)
+![](screens/2019-01-10-23-08-05.png)
 
 Sample mutation:
-![](2019-01-10-23-09-53.png)
+![](screens/2019-01-10-23-09-53.png)
 
 Prisma console:
-![](2019-01-10-23-10-47.png)
+![](screens/2019-01-10-23-10-47.png)
 =========
+
+
+![](screens/2019-03-17-19-38-52.png)

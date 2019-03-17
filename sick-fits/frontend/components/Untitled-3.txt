@@ -1,0 +1,12 @@
+ "rules": {
+  "indent": ["error", "tab"],
+  "no-tabs": 0,
+  "linebreak-style": 0,
+  "react/jsx-filename-extension": 0,
+  "react/jsx-indent": ["error", "tab"],
+  "react/jsx-indent-props": ["error", "tab"],
+  "react/destructuring-assignment": 0,
+  "react/prefer-stateless-function": 0,
+	"react/button-has-type": 0,
+	"react/jsx-one-expression-per-line": 0
+ }
